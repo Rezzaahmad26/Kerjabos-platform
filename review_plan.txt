@@ -1,0 +1,41 @@
+Review Kode Menyeluruh - KerjaBos Laravel Project
+
+Informasi yang Dikumpulkan:
+- Controller WalletTransactionController sudah menggunakan DB transaction dan Eloquent dengan baik, namun ada beberapa method kosong dan potensi typo pada route redirect.
+- Blade view front/index.blade.php sudah terstruktur rapi dengan Tailwind CSS dan penggunaan komponen, namun ada beberapa konten hardcoded dan tautan placeholder.
+- Tidak ditemukan kode debug atau deprecated seperti TODO, FIXME, eval, dd, dump, die.
+
+Rencana Review:
+1. Controller
+   - Periksa semua controller untuk method kosong, validasi input, error handling, dan konsistensi penamaan route.
+   - Pastikan penggunaan DB transaction dan Eloquent sudah optimal.
+2. Request Validation
+   - Review semua Form Request classes untuk validasi yang lengkap dan sesuai kebutuhan.
+3. Model
+   - Periksa relasi antar model, accessor/mutator, dan scopes untuk efisiensi query.
+4. Views
+   - Review blade templates untuk konsistensi, penggunaan komponen, dan penghindaran hardcoded data.
+   - Periksa penggunaan asset dan URL yang benar.
+5. Routes
+   - Periksa file routes/web.php dan routes/auth.php untuk konsistensi dan keamanan middleware.
+6. Konfigurasi
+   - Review konfigurasi penting seperti auth, cache, session, dan permission.
+7. Keamanan
+   - Pastikan sanitasi input, proteksi CSRF, dan validasi file upload.
+8. Performa
+   - Cek penggunaan pagination, eager loading, dan caching jika ada.
+
+File Terkait untuk Review/Edit:
+- app/Http/Controllers/*.php
+- app/Http/Requests/*.php
+- app/Models/*.php
+- resources/views/**/*.blade.php
+- routes/*.php
+- config/*.php
+
+Langkah Selanjutnya:
+- Setelah konfirmasi, saya akan mulai review file-file utama dan memberikan saran perbaikan.
+- Bisa juga melakukan refactor jika diperlukan.
+- Testing dan validasi setelah perubahan.
+
+Mohon konfirmasi apakah rencana ini sesuai dan jika ada tambahan fokus yang diinginkan.
