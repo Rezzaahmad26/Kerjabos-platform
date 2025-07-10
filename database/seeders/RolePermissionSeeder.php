@@ -74,7 +74,7 @@ class RolePermissionSeeder extends Seeder
             'occupation' => 'Owner',
             'connect' => 999,
             'password' => bcrypt('abcd1234'),
-            'avatar' => '$avatarPath',
+            'avatar' => 'avatars/superadmin.jpg',
         ]);
         $user->assignRole($superAdminRole);
 

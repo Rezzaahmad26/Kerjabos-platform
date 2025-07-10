@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="w-[50px] h-[50px] rounded-full overflow-hidden flex shrink-0">
-                    <img src="{{Storage::url(Auth::user()->avatar)}}" class="w-full h-full object-cover" alt="photo">
+                    <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-full h-full object-cover" alt="photo">
                 </div>
             </a>
         @endauth
