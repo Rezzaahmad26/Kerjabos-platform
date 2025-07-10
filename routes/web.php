@@ -116,9 +116,11 @@ Route::middleware('auth')->group(function () {
 
         Route::middleware('can:manage connect topups')->group(function () {
         Route::get('/connect/topups', [Connect::class, 'adminTopupIndex'])->name('connect.topups');
-
+         Route::put('/connect/topups/{id}/reject', [Connect::class, 'rejectTopup'])->name('connect.topups.reject');
         Route::put('/connect/topups/{id}/approve', [Connect::class, 'approveTopup'])->name('connect.topups.approve');
         });
+
+
 
     });
 

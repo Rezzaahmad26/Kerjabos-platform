@@ -14,14 +14,26 @@ class Connect extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function connect()
+   public function connect()
     {
         $authUser = auth()->user();
+
         $connect = ConnectTopup::where('user_id', $authUser->id)
             ->orderByDesc('id')
             ->get();
-        return view('front.connect', compact('connect'));
+
+        $latestTopup = ConnectTopup::where('user_id', $authUser->id)
+            ->orderByDesc('id')
+            ->first();
+
+        $latestRejected = ConnectTopup::where('user_id', $authUser->id)
+            ->where('status', 'rejected')
+            ->orderByDesc('id')
+            ->first();
+
+        return view('front.connect', compact('connect', 'latestTopup', 'latestRejected'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -70,16 +82,39 @@ class Connect extends Controller
                 return view('admin.connect_topups.index', compact('topups'));
             }
 
-        public function approveTopup($id)
+      public function approveTopup($id)
         {
-            $topup = ConnectTopup::findOrFail($id);
-            if (!$topup->is_paid) {
-                $topup->update(['is_paid' => true]);
+            $topup = \App\Models\ConnectTopup::findOrFail($id);
+
+            if ($topup->status === 'pending') {
+                $topup->status = 'approved';
+                $topup->is_paid = true;
+                $topup->save();
+
                 $topup->user->increment('connect', $topup->connect_amount);
+
+                return redirect()->back()->with('success', 'Topup Connect berhasil disetujui.');
             }
 
-            return redirect()->back()->with('success', 'Topup connect berhasil diverifikasi.');
+            return redirect()->back()->with('success', 'Topup Connect tidak dapat disetujui.');
         }
+
+       public function rejectTopup($id)
+        {
+            $topup = \App\Models\ConnectTopup::findOrFail($id);
+
+            if ($topup->status !== 'pending') {
+                return redirect()->back()->with('success', 'Topup sudah diproses.');
+            }
+
+            $topup->status = 'rejected';
+            $topup->is_paid = false;
+            $topup->save();
+
+            return redirect()->back()->with('success', 'Topup berhasil ditolak.');
+        }
+
+
     /**
      * Display the specified resource.
      */

@@ -35,17 +35,31 @@
                                 @endif
                             </td>
                             <td class="px-4 py-2">
-                                @if(!$topup->is_paid)
-                                    <form method="POST" action="{{ route('admin.connect.topups.approve', $topup->id) }}">
-                                        @csrf @method('PUT')
-                                        <button type="submit" class="bg-green-600 text-white px-4 py-1 rounded">
-                                            <span class="text-sm">Setujui</span>
-                                        </button>
-                                    </form>
-                                @else
+                                @if(!$topup->is_paid && $topup->status === 'pending')
+                                    <div class="flex gap-2">
+                                        <form method="POST" action="{{ route('admin.connect.topups.approve', $topup->id) }}">
+                                            @csrf @method('PUT')
+                                            <button type="submit" class="bg-green-600 text-white px-4 py-1 rounded text-sm">
+                                                Setujui
+                                            </button>
+                                        </form>
+
+                                        <form method="POST" action="{{ route('admin.connect.topups.reject', $topup->id) }}">
+                                            @csrf @method('PUT')
+                                            <button type="submit" class="bg-red-600 text-white px-4 py-1 rounded text-sm">
+                                                Tolak
+                                            </button>
+                                        </form>
+                                    </div>
+                                @elseif($topup->status === 'approved')
                                     <span class="text-green-600 italic">Sudah disetujui</span>
+                                @elseif($topup->status === 'rejected')
+                                    <span class="text-red-600 italic">Ditolak</span>
+                                @else
+                                    <span class="text-gray-600 italic">Status Tidak Diketahui</span>
                                 @endif
                             </td>
+
                         </tr>
                     @empty
                         <tr><td colspan="5" class="text-center py-4">Belum ada topup connect</td></tr>
