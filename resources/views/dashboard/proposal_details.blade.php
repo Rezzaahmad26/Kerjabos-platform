@@ -93,9 +93,9 @@
                             Klien akan mengundang email Anda untuk berdiskusi pada Zoom Meeting.
                         </p>
                         </div>
-                            <a href="{{ route('chat.index', $applicant->freelancer->id) }}"
-                                class="font-bold py-4 px-6 bg-green-600 text-white rounded-full">
-                                💬 Chat Freelancer
+                            <a href="{{ route('chat.index', $project->client_id) }}"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md mt-4 inline-block">
+                                Chat dengan Klien
                             </a>
                     </div>
 
