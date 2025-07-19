@@ -67,11 +67,16 @@
                         <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-red-500 text-white">
                             REJECTED
                         </span>
+
                     @endif
 
-                <div class="flex flex-row items-center gap-x-3">
+                    <div class="flex flex-row items-center gap-x-3">
                         <a href="{{route('admin.project_applicants.show', $applicant)}}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                             Details
+                        </a>
+                        <a href="{{ route('chat.index', $applicant->freelancer->id) }}"
+                        class="font-bold py-4 px-6 bg-green-600 text-white rounded-full">
+                        💬 Chat Freelancer
                         </a>
                     </div>
                 </div>

@@ -5,15 +5,15 @@
 
 <body class="font-poppins bg-[#F6F5FA] pb-[100px] px-4 sm:px-0">
  <x-nav/>
-  <section id="breadcrumb" class="container max-w-[1130px] mx-auto mt-[30px]">
-    <div class="flex gap-[30px] items-center">
+  <section id="breadcrumb" class="container max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 mt-[50px]">
+    <div class="flex gap-5 items-center border rounded-[20px] bg-white p-[10px_14px]">
         <a href="{{route('front.index')}}" class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Browse</a>
         <span>/</span>
         <a href="" class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Projects</a>
         <span>/</span>
         <a href="" class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Details</a>
     </div>
-    
+
   </section>
   <section id="details" class="container max-w-[1130px] mx-auto flex flex-col sm:flex-row sm:flex-nowrap gap-5 mt-[30px]">
     <div class="bg-white flex flex-col gap-5 p-5 rounded-[20px]">
@@ -39,6 +39,9 @@
             <p class="text-sm text-[#545768]">Posted at {{$project->created_at->format('d m Y')}}</p>
         </div>
         <div class="flex flex-col gap-[6px] w-full">
+            <div class="w-full h-[170px] flex shrink-0 rounded-[20px] overflow-hidden">
+                <img src="{{Storage::url($project->thumbnail)}}" class="w-full h-full object-cover" alt="thumbnail">
+            </div>
             <h3 class="font-semibold">About Project</h3>
             <p class="text-sm leading-[28px]">
                 {{$project->about}}
@@ -104,10 +107,11 @@
         </div>
     </div>
     <div class="flex flex-col sm:w-[300px] h-fit shrink-0 bg-white rounded-[20px] p-5 gap-[30px]">
-        <div class="w-full h-[170px] flex shrink-0 rounded-[20px] overflow-hidden">
-            <img src="{{Storage::url($project->thumbnail)}}" class="w-full h-full object-cover" alt="thumbnail">
-        </div>
+
         <div class="flex flex-col gap-3">
+             <div class="w-full h-[170px] flex shrink-0 rounded-[20px] overflow-hidden">
+                <img src="{{Storage::url($project->thumbnail)}}" class="w-full h-full object-cover" alt="thumbnail">
+            </div>
 
             @auth
                 @if(Auth::user()->hasAppliedToProject($project->id))

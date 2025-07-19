@@ -8,12 +8,22 @@
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-        <!-- Occupation -->
+       {{-- Occupation --}}
         <div class="mt-4">
-            <x-input-label for="occupation" :value="__('Occupation')" />
-            <x-text-input id="occupation" class="block mt-1 w-full" type="text" name="occupation" :value="old('occupation')" required autofocus autocomplete="name" />
+            <x-input-label for="occupation" :value="__('Occupations')" />
+                <select id="occupation" name="occupation[]" multiple
+                        class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="Frontend Developer">Frontend Developer</option>
+                        <option value="Backend Developer">Backend Developer</option>
+                        <option value="UI/UX Designer">UI/UX Designer</option>
+                        <option value="Graphic Designer">Graphic Designer</option>
+                        <option value="Mobile Developer">Mobile Developer</option>
+                        <option value="DevOps">DevOps</option>
+                        <option value="Fullstack Developer">Fullstack Developer</option>
+                </select>
             <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
         </div>
+
 
         <div class="mt-4">
             <x-input-label for="avatar" :value="__('Avatar')" />
@@ -74,5 +84,21 @@
                 {{ __('Register') }}
             </x-primary-button>
         </div>
+
+
+
     </form>
+        {{-- <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const occupationSelect = document.getElementById('occupation');
+                if (occupationSelect) {
+                    new Choices(occupationSelect, {
+                        removeItemButton: true,
+                        placeholder: true,
+                        placeholderValue: 'Pilih Occupation...',
+                        searchPlaceholderValue: 'Cari...',
+                    });
+                }
+            });
+        </script> --}}
 </x-guest-layout>

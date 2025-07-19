@@ -6,7 +6,7 @@
         <x-nav/>
 
         <div class="container  mx-auto flex flex-col items-center justify-center gap-5 py-[57px]">
-            <h1 class="text-[#7C5142] text-[40px] font-bold">Welcome to KerjaBos</h1>
+            <h1 class="text-[#7C5142] text-[40px] font-bold">Selamat Datang ke KerjaBos</h1>
             <h3 class="text-[#7C5142] text-[16px] font-medium pb-[30px]">Connecting Clients with Top Freelancers — Fast, Easy, and Secure.</h3>
             <div class="bg-[#FF611A] text-white p-[16px_45px] rounded-[20px] font-semibold text-center w-fit">
                 <p>Explore</p>
@@ -77,7 +77,8 @@
     <section id="featured" class="container max-w-[1280px] mx-auto flex flex-col gap-4 mt-[50px]">
 
         <h2 class="font-bold text-xl text-[#7C5142]">Featured Projects</h2>
-        <div class="flex justify-between ">
+        <div class="flex justify-evenly items-center gap-5 overflow-x-auto py-5">
+            {{-- Card Project --}}
 
             @forelse($projects->take(3) as $project)
                 <a href="{{route('front.details', $project)}}" class="card w-[276px] h-[322px]">
@@ -105,15 +106,15 @@
                                 {{$project->name}}
                             </p>
                             <div class="flex items-center gap-[6px]">
-                                <div><img src="assets/icons/dollar-circle.svg" alt="icon"></div>
+                                <div><img src="assets/icons/dollar-circle.svg" alt="icon" class="w-5 h-5"></div>
                                 <p class="font-semibold text-sm">Rp{{number_format($project->budget, 0, ',', '.')}}</p>
                             </div>
                             <div class="flex items-center gap-[6px]">
-                                <div><img src="assets/icons/verify.svg" alt="icon"></div>
+                                <div><img src="assets/icons/verify.svg" alt="icon" class="w-5 h-5"></div>
                                 <p class="font-semibold text-sm">Payment Verified</p>
                             </div>
                             <div class="flex items-center gap-[6px]">
-                                <div><img src="assets/icons/crown.svg" alt="icon"></div>
+                                <div><img src="assets/icons/crown.svg" alt="icon" class="w-5 h-5"></div>
                                 <p class="font-semibold text-sm">{{$project->skill_level}}</p>
                             </div>
                         </div>
@@ -124,6 +125,12 @@
             @endforelse
 
            <div class="flex flex-col sm:w-[300px] w-[276px] h-full shrink-0 bg-white rounded-[20px] p-5 gap-[20px] border shadow-lg">
+
+            {{-- <a href="{{ route('chat.index', $adminId) }}" class="fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.83L3 20l1.29-3.87A7.999 7.999 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+            </a> --}}
                 @auth
                     <div class="flex flex-col gap-4">
                         <h3 class="font-semibold text-lg">Your Profile</h3>

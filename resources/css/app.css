@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.choices__inner {
+    @apply  bg-white rounded-lg mt-1 border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-sm w-full  ;
+}
+
+.choices__list--multiple .choices__item {
+    @apply bg-indigo-300 text-indigo-700 rounded px-2 py-1  text-sm;
+}

@@ -72,7 +72,7 @@ class Connect extends Controller
         ]);
 
 
-        return redirect()->route('dashboard.connect')->with('success', 'Permintaan topup connect berhasil dikirim. Menunggu verifikasi admin.');
+        return redirect()->route('dashboard.connect')->with('success', 'Permintaan topup connect berhasil dikirim. Menunggu verifikasi admin.')->with('error', 'Permintaan topup connect gagal dikirim.');
     }
 
 

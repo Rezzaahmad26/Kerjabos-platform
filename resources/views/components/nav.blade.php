@@ -5,23 +5,23 @@
         </a>
         <ul class="flex items-center flex-wrap gap-x-[30px]">
             <li>
-                <a href="{{route('front.index')}}" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300 {{request()->routeIs('front.index') ? 'text-[#FF611A] font-semibold'  : ''}} ">Browse</a>
+                <a href="{{route('front.index')}}" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300 {{request()->routeIs('front.index') ? 'text-[#FF611A] font-semibold'  : ''}} ">Beranda</a>
             </li>
             <li>
-                <a href="{{route('front.index')}}" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300">Categories</a>
+                <a href="{{route('front.index')}}" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300">Kategori</a>
             </li>
             @can('apply job')
             <li>
-                <a href="{{route('dashboard.proposals')}}" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300">My Jobs</a>
+                <a href="{{route('dashboard.proposals')}}" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300">Pekerjaan Saya</a>
             </li>
             @endcan
             @can('withdraw wallet')
             <li>
-                <a href="{{route('dashboard.wallet')}}" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300">Wallets</a>
+                <a href="{{route('dashboard.wallet')}}" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300">Dompet</a>
             </li>
             @endcan
             <li>
-                <a href="#" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300">Help</a>
+                <a href="#" class="hover:font-semibold hover:text-[#FF611A] transition-all duration-300">Bantuan</a>
             </li>
         </ul>
         @auth

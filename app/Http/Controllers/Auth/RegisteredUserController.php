@@ -33,11 +33,14 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'avatar' => ['required', 'image', 'mimes:jpg,jpeg,png'],
-            'occupation' => ['required', 'string', 'max:255'],
+            'occupation' => ['required', 'array'],
+            'occupation.*' => ['string', 'max:255'],
             'role' => ['required', 'string', 'max:255', 'in:project_freelancer,project_client'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+
         ]);
+        $occupation = implode(',', $request->occupation);
 
         if($request->hasFile('avatar')) {
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
@@ -46,7 +49,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'occupation' => $request->occupation,
+            'occupation' => $occupation,
             'avatar' => $avatarPath,
             'connect' => 10,
             'password' => Hash::make($request->password),

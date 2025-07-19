@@ -12,6 +12,7 @@ use App\Http\Controllers\WalletController;
 use App\Http\Controllers\WalletTransactionController;
 use App\Http\Controllers\Connect;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/category/{category:slug}', [FrontController::class, 'category'])->name('front.category');
@@ -31,6 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard/connect', [Connect::class, 'connect'])->name('dashboard.connect');
+
+     Route::get('/chat/{userId}', [ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/{userId}', [ChatController::class, 'store'])->name('chat.send');
 
     Route::post('/dashboard/connect/topup', [Connect::class, 'store'])
         ->middleware('can:topup connect')
