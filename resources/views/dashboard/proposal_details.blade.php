@@ -93,10 +93,12 @@
                             Klien akan mengundang email Anda untuk berdiskusi pada Zoom Meeting.
                         </p>
                         </div>
-                            <a href="{{ route('chat.index', $project->client_id) }}"
-                            class="bg-blue-600 text-white px-4 py-2 rounded-md mt-4 inline-block">
-                                Chat dengan Klien
-                            </a>
+                           @if($projectApplicant->status == 'Hired')
+                                <a href="{{ route('chat.index', $project->client_id) }}"
+                                class="bg-green-600 text-white px-3 py-1 rounded-full">
+                                    Chat dengan Klien
+                                </a>
+                            @endif
                     </div>
 
 

@@ -1,25 +1,63 @@
+{{-- File: resources/views/chat/index.blade.php --}}
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800">Chat dengan {{ $receiver->name }}</h2>
-    </x-slot>
+    <div class="max-w-4xl mx-auto py-10 mt-10">
+        <h2 class="text-2xl font-bold mb-4">Chat with {{ $receiver->name }}</h2>
 
-    <div class="py-10 max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
-        <div class="h-80 overflow-y-auto border border-gray-200 p-4 mb-4 rounded">
-            @forelse($messages as $msg)
-                <div class="mb-2 {{ $msg->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
-                    <span class="px-3 py-2 inline-block rounded-lg {{ $msg->sender_id == auth()->id() ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800' }}">
-                        {{ $msg->message }}
-                    </span>
+        <div id="chat-messages" class="bg-white p-6 rounded-lg shadow mb-4 max-h-[400px] overflow-y-auto">
+            @foreach ($messages as $msg)
+                <div class="mb-2 text-sm">
+                    <strong class="{{ $msg->sender_id == auth()->id() ? 'text-indigo-600' : 'text-gray-700' }}">
+                        {{ $msg->sender->name }}:
+                    </strong>
+                    {{ $msg->message }}
                 </div>
-            @empty
-                <p class="text-center text-gray-500">Belum ada pesan.</p>
-            @endforelse
+            @endforeach
         </div>
 
-        <form action="{{ route('chat.send', $receiver->id) }}" method="POST" class="flex gap-3">
+        <form action="{{ route('chat.send', $receiver->id) }}" method="POST">
             @csrf
-            <input type="text" name="message" placeholder="Ketik pesan..." required class="border rounded-lg flex-1 px-4 py-2">
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Kirim</button>
+            <textarea name="message" rows="3" class="w-full border rounded-lg p-2" placeholder="Type your message..."></textarea>
+            <x-input-error :messages="$errors->get('message')" class="mt-2" />
+            <button type="submit" class="mt-2 bg-indigo-600 text-white px-4 py-2 rounded">Send</button>
         </form>
     </div>
+
+    {{-- Tambahkan script real-time setelah semua konten --}}
+    <script>
+        window.userId = {{ auth()->id() }};
+    </script>
+
+    <script type="module">
+        import Echo from 'laravel-echo';
+        import Pusher from 'pusher-js';
+
+        window.Pusher = Pusher;
+
+        window.Echo = new Echo({
+            broadcaster: 'pusher',
+            key: import.meta.env.VITE_PUSHER_APP_KEY,
+            cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'ap1',
+            forceTLS: true,
+            encrypted: true,
+        });
+
+         Echo.private('chat.{{ auth()->id() }}')
+        .listen('MessageSent', (e) => {
+            console.log('Pesan baru diterima:', e);
+
+            const container = document.getElementById('chat-messages');
+            const message = document.createElement('div');
+            message.classList.add('mb-2', 'text-sm');
+
+            const strong = document.createElement('strong');
+            strong.textContent = e.sender_id === {{ auth()->id() }} ? 'You: ' : 'Pengirim: ';
+            strong.classList.add(e.sender_id === {{ auth()->id() }} ? 'text-indigo-600' : 'text-gray-700');
+
+            message.appendChild(strong);
+            message.append(' ' + e.message);
+            container.appendChild(message);
+
+            container.scrollTop = container.scrollHeight;
+        });
+    </script>
 </x-app-layout>

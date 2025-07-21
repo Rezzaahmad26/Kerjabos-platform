@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard/connect', [Connect::class, 'connect'])->name('dashboard.connect');
 
-     Route::get('/chat/{userId}', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chat/{userId}', [ChatController::class, 'index'])->name('chat.index');
     Route::post('/chat/{userId}', [ChatController::class, 'store'])->name('chat.send');
 
     Route::post('/dashboard/connect/topup', [Connect::class, 'store'])
